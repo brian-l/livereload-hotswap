@@ -1,0 +1,23 @@
+{
+  "name": "livereload-hotswap",
+  "description": "Script that piggybacks off LiveReload.js and Grunt watch to reload assets in place.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:brian-l/livereload-hotswap.git"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "grunt": "1.0.1",
+    "grunt-babel": "^7.0.0",
+    "grunt-cli": "1.2.0",
+    "grunt-contrib-uglify": "2.0.0",
+    "load-grunt-tasks": "^3.5.2"
+  },
+  "scripts": {
+    "build": "grunt"
+  }
+}
