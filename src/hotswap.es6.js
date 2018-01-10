@@ -11,7 +11,7 @@
             /*
              * Search for specifically targeted scripts/links/images.
              */
-            let targets = [...globals.document.querySelectorAll('[data-hotswap]')];
+            let targets = [...globals.document.querySelectorAll('[data-hotswap-target]')];
 
             /*
              * Tell the Reloader to continue its normal processing by returning false;
@@ -25,14 +25,25 @@
              * else test assets that match the regexes passed through data-hotswap.
              */
             let reloads = targets.filter((target) => {
-                return ('hotswap' in target.dataset && !target.dataset.hotswap) || new RegExp(target.dataset.hotswap).test(path)
-            });
+                    return (
+                        ('hotswapTarget' in target.dataset && !target.dataset.hotswapTarget) ||
+                        new RegExp(target.dataset.hotswapTarget).test(path)
+                    );
+                }),
+                shouldClear = reloads.reduce(
+                    (clear, reload) => clear || 'hotswapClear' in reload.dataset,
+                    false
+                );
 
             /*
-             * Its possible no targets matched our regex or had the data-hotswap attribute, quit early if so.
+             * Its possible no targets matched our regex or had the data-hotswap-target attribute, quit early if so.
              */
             if(!reloads.length) {
                 return false;
+            }
+
+            if(shouldClear) {
+                globals.console.clear();
             }
 
             for(let obj of reloads) {

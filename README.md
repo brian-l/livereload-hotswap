@@ -14,24 +14,30 @@ Note: this script will not remove event listeners or do any other cleanup.
 
 1. Add `dest/hotswap.min.js` to your page following your local LR server script.
 
-2. For all scripts you want to be reloaded, add `data-hotswap` to their element. You may also target specific source files using regular expressions.
+2. For all scripts you want to be reloaded, add `data-hotswap-target` to their element. You may also target specific source files using regular expressions.
 
 ## Examples
 
 * Always reload a script, regardless of what changed during grunt watch:
 
     ```
-        <script type="text/javascript" src="myfancyscript.js" data-hotswap></script>
+        <script type="text/javascript" src="myfancyscript.js" data-hotswap-target></script>
+    ```
+
+* Always reload a script, regardless of what changed during grunt watch, clearing the console before:
+
+    ```
+        <script type="text/javascript" src="myfancyscript.js" data-hotswap-target data-hotswap-clear></script>
     ```
 
 * Reload a script when its main source file is matched:
 
     ```
-        <script type="text/javascript" src="myfancyscript.js" data-hotswap="src/myfancyscript.jsx"></script>
+        <script type="text/javascript" src="myfancyscript.js" data-hotswap-target="src/myfancyscript.jsx"></script>
     ```
 
 * Reload global CSS when one LESS source is updated:
 
     ```
-        <link rel="stylesheet" href="style.css" data-hotswap="less/.*less" />
+        <link rel="stylesheet" href="style.css" data-hotswap-target="less/.*less" />
     ```

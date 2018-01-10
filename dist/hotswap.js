@@ -20,7 +20,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 /*
                  * Search for specifically targeted scripts/links/images.
                  */
-                var targets = [].concat(_toConsumableArray(globals.document.querySelectorAll('[data-hotswap]')));
+                var targets = [].concat(_toConsumableArray(globals.document.querySelectorAll('[data-hotswap-target]')));
 
                 /*
                  * Tell the Reloader to continue its normal processing by returning false;
@@ -34,14 +34,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                  * else test assets that match the regexes passed through data-hotswap.
                  */
                 var reloads = targets.filter(function (target) {
-                    return 'hotswap' in target.dataset && !target.dataset.hotswap || new RegExp(target.dataset.hotswap).test(path);
-                });
+                    return 'hotswapTarget' in target.dataset && !target.dataset.hotswapTarget || new RegExp(target.dataset.hotswapTarget).test(path);
+                }),
+                    shouldClear = reloads.reduce(function (clear, reload) {
+                    return clear || 'hotswapClear' in reload.dataset;
+                }, false);
 
                 /*
-                 * Its possible no targets matched our regex or had the data-hotswap attribute, quit early if so.
+                 * Its possible no targets matched our regex or had the data-hotswap-target attribute, quit early if so.
                  */
                 if (!reloads.length) {
                     return false;
+                }
+
+                if (shouldClear) {
+                    globals.console.clear();
                 }
 
                 var _iteratorNormalCompletion = true;
