@@ -82,5 +82,13 @@
     /*
      * Cheat the plugin system and add this class in after LiveReload exists.
      */
-    globals.LiveReload.addPlugin(HotSwapPlugin);
+    if(globals.LiveReload) {
+        globals.LiveReload.addPlugin(HotSwapPlugin);
+    } else {
+        globals.console.warn(
+            `Missing LiveReload api.
+Did you load livereload.js?
+See: https://github.com/gruntjs/grunt-contrib-watch/blob/master/docs/watch-examples.md#enabling-live-reload-in-your-html`
+        );
+    }
 })(window);
